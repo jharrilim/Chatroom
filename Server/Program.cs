@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore;
+﻿using System;
+
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace WebSocket.Server
@@ -7,10 +9,13 @@ namespace WebSocket.Server
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
-                .UseUrls("http://0.0.0.0:80")
-                .Build()
-                .Run();
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            CreateWebHostBuilder(args).UseUrls
+            (
+                env == EnvironmentName.Production? "http://0.0.0.0:80": "http://localhost:80"
+            )
+            .Build()
+            .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

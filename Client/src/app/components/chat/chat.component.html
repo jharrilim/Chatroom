@@ -1,17 +1,17 @@
 <mat-card class="mat-card">
-  <mat-card-content>
+  <mat-card-content #content style="height:80%; overflow-y: scroll" [scrollTop]="content.scrollHeight">
     <mat-list>
       <mat-list-item *ngFor="let message of messages">
-        <mat-icon matListIcon>account_circle</mat-icon>
+        <mat-icon matListIcon>{{ message.userType == 'system' ? 'toll' : 'account_circle'}}</mat-icon>
         <h3 matLine> {{message.user}} </h3>
         <p matLine>
-          <span> {{message.date}} </span>
+          <span> {{message.localTime}} </span>
           <span> -- {{message.content}} </span>
         </p>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions style="height:20%">
     <form (ngSubmit)="sendMessage()" #messageForm="ngForm">
       <mat-form-field>
         <input id="msgBox" #msgBox matInput type="text" placeholder="Message" name="message" [(ngModel)]="message" autocomplete="off" />

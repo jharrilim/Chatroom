@@ -23,9 +23,15 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Client</span>
+        <span>Client</span>
+        <span class="navspacer"></span>
+        <form>
+          <mat-form-field>
+            <input matInput [(ngModel)]="nameField" name="nameField" placeholder="Your Name" />
+          </mat-form-field>
+        </form>
     </mat-toolbar>
-    <main id="mainContent" [style.height.vh]="100">
+    <main id="mainContent">
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>

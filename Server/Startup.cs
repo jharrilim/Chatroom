@@ -12,10 +12,12 @@ namespace WebSocket.Server
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Environment   = env;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -38,7 +40,7 @@ namespace WebSocket.Server
                     .AllowCredentials()
                     .WithOrigins  // You can add multiple origins to this parameter list.
                     (
-                        "http://*:80"
+                        Environment.IsDevelopment() ? "http://localhost:4200" : "http://*:80"
                     );
             }));
 
