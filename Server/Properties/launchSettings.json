@@ -17,6 +17,7 @@
     },
     "WebSocket_Angular": {
       "commandName": "Project",
+      "launchUrl": "http://localhost:8060",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace WebSocket.Server
 {
@@ -34,8 +36,9 @@ namespace WebSocket.Server
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials()
-                    .WithOrigins(  // You can add multiple origins to this parameter list.
-                    "http://localhost:4200"
+                    .WithOrigins  // You can add multiple origins to this parameter list.
+                    (
+                        "http://*:80"
                     );
             }));
 
@@ -54,7 +57,7 @@ namespace WebSocket.Server
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -63,7 +66,11 @@ namespace WebSocket.Server
             {
                 routes.MapHub<MyHub>("/myHub");
             });
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller}/{action}");
+                routes.MapRoute("Spa", "{*url}", defaults: new { controller = "Home", action = "Spa" });
+            });
         }
     }
 }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "clonk": {
+    "client": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/clonk",
+            "outputPath": "../Server/wwwroot/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -53,18 +53,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "clonk:build"
+            "browserTarget": "client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "clonk:build:production"
+              "browserTarget": "client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "clonk:build"
+            "browserTarget": "client:build"
           }
         },
         "test": {
@@ -101,7 +101,7 @@
         }
       }
     },
-    "clonk-e2e": {
+    "client-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -109,11 +109,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "clonk:serve"
+            "devServerTarget": "client:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "clonk:serve:production"
+              "devServerTarget": "client:serve:production"
             }
           }
         },
@@ -129,5 +129,5 @@
       }
     }
   },
-  "defaultProject": "clonk"
+  "defaultProject": "client"
 }
