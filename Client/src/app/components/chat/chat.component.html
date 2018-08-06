@@ -1,0 +1,23 @@
+<mat-card class="mat-card">
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let message of messages">
+        <mat-icon matListIcon>account_circle</mat-icon>
+        <h3 matLine> {{message.user}} </h3>
+        <p matLine>
+          <span> {{message.date}} </span>
+          <span> -- {{message.content}} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <form (ngSubmit)="sendMessage()" #messageForm="ngForm">
+      <mat-form-field>
+        <input id="msgBox" #msgBox matInput type="text" placeholder="Message" name="message" [(ngModel)]="message" autocomplete="off" />
+        <mat-hint>Click Send when you finish writing.</mat-hint>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="msgBox.value?.length <= 0">Send</button>
+    </form>
+  </mat-card-actions>
+</mat-card>
