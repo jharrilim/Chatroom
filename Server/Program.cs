@@ -8,7 +8,7 @@ namespace WebSocket.Server
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args)
-                .UseUrls("http://localhost:80")
+                .UseUrls("http://0.0.0.0:80")
                 .Build()
                 .Run();
         }
