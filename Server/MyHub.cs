@@ -22,16 +22,23 @@ namespace WebSocket.Server
             await Clients.Caller.SendAsync("GetChatHistory", messages.ToList());
             await Clients.Caller.SendAsync("SelfJoined", Context.ConnectionId);
             await Clients.Others.SendAsync("UserJoined", Context.ConnectionId);
+            await SendMessage("System", $"{Context.ConnectionId} has joined the room.", "system");
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await Clients.Others.SendAsync("UserDisconnected", Context.ConnectionId);
+            await SendMessage("System", $"{Context.ConnectionId} has left the room.", "system");
             await base.OnDisconnectedAsync(exception);
         }
 
         public async Task SendMessage(string user, string message)
+        {
+            await SendMessage(user, message, "user");
+        }
+
+        private async Task SendMessage(string user, string message, string userType)
         {
             if(messages.Count >= messageLimit)
             {
@@ -41,7 +48,8 @@ namespace WebSocket.Server
             {
                 User = user,
                 Content = message,
-                LocalTime = DateTime.Now.ToLocalTime().ToShortTimeString()
+                LocalTime = DateTime.Now.ToLocalTime().ToShortTimeString(),
+                UserType = userType
             };
             messages.Enqueue(m);
             Console.WriteLine(messages.Count);

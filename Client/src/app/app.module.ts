@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './components/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatInputModule, MatFormFieldModule, MatDividerModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatInputModule, MatFormFieldModule, MatDividerModule, MatGridListModule } from '@angular/material';
 import { ChatComponent } from './components/chat/chat.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
@@ -25,15 +25,16 @@ const routes: Route[] = [
         BrowserAnimationsModule,
         FormsModule,
         LayoutModule,
-        MatDividerModule,
-        MatToolbarModule,
         MatButtonModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
         MatCardModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatGridListModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatSidenavModule,
+        MatToolbarModule,
         ReactiveFormsModule,
         RouterModule.forRoot(routes)
     ],
