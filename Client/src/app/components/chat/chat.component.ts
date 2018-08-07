@@ -3,7 +3,7 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import * as signalR from '@aspnet/signalr';
 import { Message } from '../../models/message';
 import { UserService } from '../../services/user.service';
-
+import { environment } from '../../../environments/environment';
 @Component({
     selector: 'app-chat',
     templateUrl: './chat.component.html',
@@ -13,7 +13,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     public messages: Message[] = [];
     public message: string = '';
     private hubConnection: HubConnection | undefined;
-
     @ViewChild('msgBox')
     private messageBox: ElementRef;
 
@@ -21,7 +20,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.hubConnection = new HubConnectionBuilder()
-            .withUrl('http://localhost:80/myHub')
+            .withUrl(environment.url)
             .configureLogging(LogLevel.Information)
             .build();
 
