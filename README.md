@@ -36,3 +36,7 @@ dotnet build -c Release
 # Use sudo for running on port 80
 sudo dotnet bin/Release/netcoreapp2.1/WebSocket.Server.dll
 ```
+If you are using windows, run PowerShell as admin and use the same command as above without sudo:
+```powershell
+dotnet Server/bin/Release/netcoreapp2.1/WebSocket.Server.dll
+```
