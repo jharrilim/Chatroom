@@ -2,9 +2,9 @@
   <mat-card-content #content style="height:80%; overflow-y: scroll" [scrollTop]="content.scrollHeight">
     <mat-list>
       <mat-list-item *ngFor="let message of messages">
-        <mat-icon matListIcon>{{ message.userType == 'system' ? 'toll' : 'account_circle'}}</mat-icon>
+        <mat-icon matListIcon>{{ message.type == 'system' ? 'toll' : 'account_circle'}}</mat-icon>
         <h3 matLine>{{message.user}}</h3>
-        <h6>{{message.localTime}}</h6>
+        <h6>{{message.unixTime | date:'mediumTime'}}</h6>
         <p matLine> {{message.content}} </p>
 
         <span matLine> </span>
@@ -24,7 +24,7 @@
           autocomplete="off"></textarea>
         <mat-hint>Press Send/Enter to send message.</mat-hint>
       </mat-form-field>
-        <button  mat-button type="submit" [disabled]="msgBox.value?.length <= 0">Send</button>
+        <button mat-button type="submit" [disabled]="msgBox.value?.length <= 0">Send</button>
     </form>
 
 

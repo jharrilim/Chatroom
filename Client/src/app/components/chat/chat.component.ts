@@ -38,12 +38,6 @@ export class ChatComponent implements OnInit, OnDestroy {
             console.log(`${id} has entered.`);
         });
 
-        this.hubConnection.on('UserDisconnected', (id: string) => {
-            const message: Message = new Message('system',
-                `${id} has left the channel.`, 'system', this.getLocalTime());
-            this.messages.push(message);
-        });
-
         this.hubConnection.on('ReceiveMessage', (message: Message) => {
             this.messages.push(message);
         });

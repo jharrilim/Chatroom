@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +13,6 @@ namespace WebSocket.Server
             string env = GetEnvironment(args);
             string url = env == "Development" ? "http://localhost:80" : "http://0.0.0.0:80"; 
             CreateWebHostBuilder(args)
-                .UseUrls(url)
                 .Build()
                 .Run();
         }
@@ -21,11 +21,12 @@ namespace WebSocket.Server
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(options => 
                 {
-                    if(GetEnvironment(args) != "Development")
+                    if (GetEnvironment(args) != "Development")
                         options.Listen(IPAddress.Any, 443, listenOpts =>
                         {
-                            listenOpts.UseHttps("/etc/ca-certificates/application.pfx", "ASafePassword");
+                            listenOpts.UseHttps(Environment.GetEnvironmentVariable("certpath"), Environment.GetEnvironmentVariable("certpass"));
                         });
+                    else options.Listen(IPAddress.Loopback, 8060);
                 }).UseStartup<Startup>();
 
         private static string GetEnvironment(string[] args) 

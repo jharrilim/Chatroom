@@ -28,7 +28,6 @@ namespace WebSocket.Server
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.Others.SendAsync("UserDisconnected", Context.ConnectionId);
             await SendMessage("System", $"{Context.ConnectionId} has left the room.", "system");
             await base.OnDisconnectedAsync(exception);
         }
@@ -38,7 +37,7 @@ namespace WebSocket.Server
             await SendMessage(user, message, "user");
         }
 
-        private async Task SendMessage(string user, string message, string userType)
+        private async Task SendMessage(string user, string message, string type)
         {
             if(messages.Count >= messageLimit)
             {
@@ -48,8 +47,8 @@ namespace WebSocket.Server
             {
                 User = user,
                 Content = message,
-                LocalTime = DateTime.Now.ToLocalTime().ToShortTimeString(),
-                UserType = userType
+                UnixTime = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds,
+                Type = type
             };
             messages.Enqueue(m);
             Console.WriteLine(messages.Count);

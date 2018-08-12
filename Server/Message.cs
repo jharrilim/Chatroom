@@ -7,12 +7,12 @@ namespace WebSocket.Server
     {
         public string User { get; set; }
         public string Content { get; set; }
-        public string UserType { get; set; }
-        public string LocalTime { get; set; }
+        public string Type { get; set; }
+        public double UnixTime { get; set; }
 
         public Message() 
         {
-            UserType = "user";
+            Type = "user";
         }
     }
 }

@@ -3,8 +3,8 @@ export class Message {
     constructor(
         public user: string,
         public content: string,
-        public userType: string = 'user',
-        public localDate?: string
+        public type: string = 'user',
+        public unixTime?: number
     ) {
 
     }
