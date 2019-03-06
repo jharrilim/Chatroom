@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Concurrent;
-
+using System.Security;
 using System.Threading.Tasks;
 
 namespace WebSocket.Server
@@ -28,6 +28,7 @@ namespace WebSocket.Server
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
+            
             await SendMessage("System", $"{Context.ConnectionId} has left the room.", "system");
             await base.OnDisconnectedAsync(exception);
         }
@@ -46,12 +47,11 @@ namespace WebSocket.Server
             Message m = new Message()
             {
                 User = user,
-                Content = message,
+                Content = SecurityElement.Escape(message),
                 UnixTime = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds,
                 Type = type
             };
             messages.Enqueue(m);
-            Console.WriteLine(messages.Count);
             await Clients.All.SendAsync("ReceiveMessage", m);
         }
 
