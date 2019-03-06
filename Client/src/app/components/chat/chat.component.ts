@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
-import * as signalR from '@aspnet/signalr';
 import { Message } from '../../models/message';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
+
 @Component({
     selector: 'app-chat',
     templateUrl: './chat.component.html',

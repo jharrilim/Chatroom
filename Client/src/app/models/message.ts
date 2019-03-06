@@ -5,7 +5,5 @@ export class Message {
         public content: string,
         public type: string = 'user',
         public unixTime?: number
-    ) {
-
-    }
+    ) { }
 }
